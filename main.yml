@@ -1,0 +1,13 @@
+---
+  - name: Install tomcat
+    hosts: local
+    become: true
+    roles:
+      - role: install_tomcat
+        vars:
+          user: cjortega
+          user_group: cjortega
+          jdk_version: 1.8.0
+          tomcat_version: 8
+          tomcat_release: 8.5.34
+          sha512_key: 0581a54ec34a5aa6e255bb5e1180aba2f2779ea74b0f910f9cb1a91091972c9441ea1f55b91ee52777322bc84452dddf8ed5409c58627f6eb8e76fd28b2934e5

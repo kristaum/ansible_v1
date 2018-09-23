@@ -1,0 +1,41 @@
+- name: Creating /opt/tomcat dir
+  file:
+    path: /opt/tomcat
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user_group }}"
+
+- name: Download file with check (sha256)
+  get_url:
+    url: "http://www-us.apache.org/dist/tomcat/tomcat-{{ tomcat_version }}/v{{ tomcat_release }}/bin/apache-tomcat-{{ tomcat_release }}.zip"
+    dest: /tmp
+    checksum: "sha512:{{ sha512_key }}"
+
+- name: Unarchive apache-tomcat zip
+  unarchive:
+    src: "/tmp/apache-tomcat-{{ tomcat_release }}.zip"
+    dest: /opt/tomcat
+    owner: "{{ user }}"
+    group: "{{ user_group }}"
+    remote_src: yes
+    creates: "/opt/tomcat/apache-tomcat-{{ tomcat_release }}"
+
+- name: Creating sym link to latest folder
+  file:
+    src: "/opt/tomcat/apache-tomcat-{{ tomcat_release }}"
+    dest: /opt/tomcat/latest
+    owner: "{{ user }}"
+    group: "{{ user_group }}"
+    state: link
+
+- name: Changing permissions of tomcat scripts
+  file:
+    path: /opt/tomcat/latest/bin
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user_group }}"
+    mode: a+x
+    recurse: yes
+
+  notify:
+    - start tomcat
