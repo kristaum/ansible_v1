@@ -5,7 +5,7 @@
     owner: "{{ user }}"
     group: "{{ user_group }}"
 
-- name: Download file with check (sha256)
+- name: Download file with check (sha512)
   get_url:
     url: "http://www-us.apache.org/dist/tomcat/tomcat-{{ tomcat_version }}/v{{ tomcat_release }}/bin/apache-tomcat-{{ tomcat_release }}.zip"
     dest: /tmp
