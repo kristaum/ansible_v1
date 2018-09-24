@@ -1,3 +1,4 @@
 ---
  - name: start tomcat
+   become: false
    shell: /opt/tomcat/latest/bin/startup.sh

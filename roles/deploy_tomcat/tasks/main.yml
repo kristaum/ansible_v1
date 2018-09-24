@@ -1,0 +1,22 @@
+---
+- name: Delete weapps folder
+  file:
+    state: absent
+    path: /opt/tomcat/latest/webapps/
+
+- name: Recreate clean folder
+  file:
+    path: /opt/tomcat/latest/webapps
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user_group }}"
+
+- name: Deploy war file into server
+  copy:
+    src: "{{ war_file }}"
+    dest: /opt/tomcat/latest/webapps/
+
+- name: Make sure tomcat is running
+  systemd:
+    state: started
+    name: tomcat

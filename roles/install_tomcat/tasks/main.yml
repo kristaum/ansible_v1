@@ -37,5 +37,17 @@
     mode: a+x
     recurse: yes
 
-  notify:
-    - start tomcat
+- name: Create service file for startup
+  copy:
+    src: tomcat.service
+    dest: /etc/systemd/system/tomcat.service
+    force: no
+
+- name: Force systemd to read case any changes on config
+  systemd:
+    daemon_reload: yes
+
+- name: Make sure service is now running
+  systemd:
+    state: started
+    name: tomcat
