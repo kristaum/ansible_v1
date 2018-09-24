@@ -7,4 +7,4 @@
         vars:
           user: cjortega
           user_group: cjortega
-          war_file: /home/cjortega/Documentos/java-chef-test.war
+          war_file: /home/cjortega/Documentos/sample.war
